@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Diamond Price Volatility Analysis</h2>
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header bg-danger text-white">Causes of Volatility</div>
+      <div class="card-body">
+        <div class="accordion" id="volatilityCausesAccordion">
+          {% set explanations = [
+            'Political instability in producing countries can disrupt mining operations, reduce supply, and create uncertainty in the market, leading to price fluctuations.',
+            'Global economic downturns reduce demand for luxury goods like diamonds, causing prices to drop or become unstable.',
+            'The rise of synthetic diamonds introduces competition, affecting demand and pricing for natural diamonds.',
+            'Supply chain disruptions, such as transport strikes or border closures, can limit the flow of diamonds to market, impacting prices.',
+            'Changing consumer preferences, such as shifts toward ethical sourcing or alternative gemstones, can alter demand and price stability.'
+          ] %}
+          {% for cause in volatility_causes %}
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ loop.index }}">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}">
+                {{ cause }}
+              </button>
+            </h2>
+            <div id="collapse{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#volatilityCausesAccordion">
+              <div class="accordion-body">
+                {{ explanations[loop.index0] }}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header bg-info text-white">Volatility Metrics & Trends</div>
+      <div class="card-body">
+        <div id="volatilityChart" style="height:250px;"></div>
+        <ul class="list-group mt-3">
+          {% for item in historical_prices %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ item.year }}
+            <span class="badge bg-secondary">${{ item.price }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+        <div class="mt-3">
+          <strong>About Volatility:</strong> Volatility is calculated as the year-to-year percentage change in price. High volatility can indicate market instability, affecting planning and investment for both producers and consumers.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="card h-100">
+      <div class="card-header bg-secondary text-white">Summary & Insights</div>
+      <div class="card-body">
+        <ul>
+          <li>Understanding volatility helps stakeholders anticipate risks and make informed decisions.</li>
+          <li>Combining historical data with AI forecasting provides a robust tool for managing price uncertainty.</li>
+          <li>Collaboration among producers and transparent reporting can help stabilize markets.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-warning mt-4">
+  <strong>Impact:</strong> Price volatility can hinder planning, investment, and growth for both producers and consumers. This dashboard helps stakeholders anticipate and manage volatility through data-driven insights and forecasting.
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+  var years = {{ historical_prices|map(attribute='year')|list|tojson }};
+  var prices = {{ historical_prices|map(attribute='price')|list|tojson }};
+  var pctChange = [null];
+  for (var i = 1; i < prices.length; i++) {
+    pctChange.push(((prices[i] - prices[i-1]) / prices[i-1]) * 100);
+  }
+  var trace = {
+    x: years,
+    y: pctChange,
+    type: 'scatter',
+    mode: 'lines+markers',
+    marker: {color: '#dc3545'},
+    line: {shape: 'linear'},
+    name: 'Volatility (%)'
+  };
+  var layout = {
+    title: 'Year-to-Year Price Volatility',
+    xaxis: {title: 'Year'},
+    yaxis: {title: 'Volatility (%)'},
+    height: 250
+  };
+  Plotly.newPlot('volatilityChart', [trace], layout, {responsive: true});
+</script>
+{% endblock %} 

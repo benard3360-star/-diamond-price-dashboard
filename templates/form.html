@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>💎 Diamond Price Predictor</title>
+    <style>
+        body { font-family: Arial; margin: 30px; background:#f5f5f5; }
+        form { background:white; padding:20px; border-radius:10px; width:400px; margin:auto; }
+        input, select { width:100%; padding:8px; margin-top:10px; }
+        button { margin-top:20px; width:100%; padding:10px; background:#5cb85c; color:white; border:none; }
+        h2 { text-align:center; }
+    </style>
+</head>
+<body>
+<h2>💎 Diamond Price Predictor</h2>
+<form method="POST">
+    {% for feature in top_10_features %}
+        <label>{{ feature.replace('_',' ').title() }}</label>
+        {% if feature in dropdown_options %}
+            <select name="{{ feature }}" required>
+                {% for option in dropdown_options[feature] %}
+                    <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+        {% else %}
+            <input type="number" step="any" name="{{ feature }}" required>
+        {% endif %}
+    {% endfor %}
+    <button type="submit">Predict Price</button>
+</form>
+
+{% if prediction %}
+    <h3 style="text-align:center; margin-top:20px;">💰 Predicted Price: ${{ prediction }}</h3>
+{% endif %}
+</body>
+</html>

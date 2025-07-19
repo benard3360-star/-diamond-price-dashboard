@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Industry Insights & Challenges</h2>
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header bg-primary text-white">Uses of Diamonds</div>
+      <div class="card-body">
+        <ul class="list-group">
+          {% for item in industry_insights %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ item.industry }}</span>
+            <span class="badge bg-info">{{ item.use }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header bg-warning text-dark">Processing Industries & Challenges</div>
+      <div class="card-body">
+        <div class="accordion" id="challengesAccordion">
+          {% set challenge_explanations = [
+            'Diamond mining and processing require significant investment in equipment, labor, and technology, making operations expensive and sometimes unprofitable in low-price periods.',
+            'Illicit trade and smuggling undermine legal markets, reduce government revenues, and can fund conflict or criminal activity.',
+            'Mining and processing can have severe environmental impacts, including habitat destruction, water pollution, and carbon emissions.',
+            'Price manipulation by cartels or large companies can distort markets, making it difficult for smaller producers to compete fairly.',
+            'Ensuring the authenticity of diamonds is crucial to prevent fraud and maintain consumer trust, requiring advanced verification methods.'
+          ] %}
+          {% for ch in challenges %}
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="challengeHeading{{ loop.index }}">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#challengeCollapse{{ loop.index }}" aria-expanded="false" aria-controls="challengeCollapse{{ loop.index }}">
+                {{ ch }}
+              </button>
+            </h2>
+            <div id="challengeCollapse{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="challengeHeading{{ loop.index }}" data-bs-parent="#challengesAccordion">
+              <div class="accordion-body">
+                {{ challenge_explanations[loop.index0] }}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <p class="mt-3">Processing industries face significant hurdles, from high extraction costs to authenticity verification and environmental concerns. Addressing these challenges is key to sustainable industry growth.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="card h-100">
+      <div class="card-header bg-secondary text-white">Industry Outlook</div>
+      <div class="card-body">
+        <ul>
+          <li>Technological advances are improving efficiency and reducing environmental impact.</li>
+          <li>Greater transparency and traceability are being demanded by consumers and regulators.</li>
+          <li>Collaboration between governments and industry can help address illicit trade and sustainability.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

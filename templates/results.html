@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Results & Discussion</h2>
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header bg-primary text-white">Model Performance</div>
+      <div class="card-body">
+        <p>The hybrid AI model (XGBoost + Gradient Boosting) achieved the following evaluation metrics on the test set:</p>
+        <ul>
+          <li><strong>MAE:</strong> 0.0578</li>
+          <li><strong>MSE:</strong> 0.0065</li>
+          <li><strong>RMSE:</strong> 0.0807</li>
+          <li><strong>R² Score:</strong> 0.9937</li>
+        </ul>
+        <div id="modelAccuracyChart" style="height:250px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header bg-success text-white">Key Insights</div>
+      <div class="card-body">
+        <ul>
+          <li>The very high <strong>R² Score (0.9937)</strong> indicates the model explains almost all the variance in diamond prices, making it highly reliable for forecasting.</li>
+          <li>Low <strong>MAE (0.0578)</strong> and <strong>RMSE (0.0807)</strong> show the model's predictions are very close to actual values, minimizing error for stakeholders.</li>
+          <li>Such accuracy enables confident scenario analysis and risk management for producers, consumers, and investors.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header bg-warning text-dark">Limitations</div>
+      <div class="card-body">
+        <ul>
+          <li>While the <strong>MSE (0.0065)</strong> is very low, the model's accuracy still depends on the quality and representativeness of the data.</li>
+          <li>Unforeseen market shocks or geopolitical events may not be fully captured by the model.</li>
+          <li>Continuous retraining and integration of new data are needed to maintain high performance.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header bg-info text-white">Recommendations</div>
+      <div class="card-body">
+        <ul>
+          <li>Stakeholders should leverage the model's high accuracy for price forecasting and strategic planning.</li>
+          <li>Governments and industry leaders are encouraged to share and update data for even better results.</li>
+          <li>Use the dashboard for scenario analysis, risk management, and to anticipate market changes.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="card h-100">
+      <div class="card-header bg-secondary text-white">Advice for Stakeholders & Economic Value</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Consumers:</strong> Use the dashboard to verify price fairness, understand market trends, and ensure authenticity before purchasing.</li>
+          <li><strong>Producers:</strong> Leverage accurate forecasts to optimize production, manage inventory, and plan investments.</li>
+          <li><strong>Policymakers & Investors:</strong> Use insights for evidence-based policy, risk assessment, and to promote sustainable growth in the diamond sector.</li>
+          <li><strong>Economic Value:</strong> The dashboard's high accuracy and transparency empower all stakeholders, reduce risk, and support fair, efficient markets across Africa.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-info">
+  <strong>Conclusion:</strong> The AI-powered diamond price dashboard, built on a hybrid XGBoost and Gradient Boosting model, is a valuable tool for industries, consumers, and policymakers. Its high accuracy and actionable insights help drive sustainable growth, transparency, and informed decision-making in Africa's diamond sector.
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+  var trace = {
+    x: ['MAE', 'MSE', 'RMSE', 'R² Score'],
+    y: [0.0578, 0.0065, 0.0807, 0.9937],
+    type: 'bar',
+    marker: {color: ['#007bff', '#28a745', '#ffc107', '#dc3545']}
+  };
+  var layout = {
+    title: 'Hybrid Model Evaluation Metrics',
+    yaxis: {title: 'Score'},
+    height: 250
+  };
+  Plotly.newPlot('modelAccuracyChart', [trace], layout, {responsive: true});
+</script>
+{% endblock %} 

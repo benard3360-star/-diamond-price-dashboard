@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Diamond Authenticity Tracking</h2>
+<div class="row mb-4">
+  <div class="col-md-8 mx-auto">
+    <div class="card mb-4">
+      <div class="card-header bg-success text-white">Methods for Authenticity Verification</div>
+      <div class="card-body">
+        <div class="accordion" id="authMethodsAccordion">
+          {% set method_explanations = [
+            'Laser inscription involves etching a unique code or certificate number onto the diamond’s girdle, allowing for easy identification and traceability.',
+            'Certification by reputable organizations (such as GIA, IGI) provides an independent assessment of a diamond’s quality and authenticity, including cut, color, clarity, and carat weight.',
+            'Blockchain tracking uses distributed ledger technology to record every transaction and movement of a diamond, ensuring a tamper-proof chain of custody from mine to market.',
+            'Spectroscopic analysis uses advanced light-based techniques to analyze a diamond’s internal structure and composition, distinguishing natural from synthetic stones.'
+          ] %}
+          {% for method in authenticity_methods %}
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="authHeading{{ loop.index }}">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#authCollapse{{ loop.index }}" aria-expanded="false" aria-controls="authCollapse{{ loop.index }}">
+                {{ method }}
+              </button>
+            </h2>
+            <div id="authCollapse{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="authHeading{{ loop.index }}" data-bs-parent="#authMethodsAccordion">
+              <div class="accordion-body">
+                {{ method_explanations[loop.index0] }}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="card-header bg-info text-white">Emerging Technologies</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>AI-powered image analysis:</strong> Machine learning models can now analyze microscopic images to detect subtle features unique to natural or synthetic diamonds.</li>
+          <li><strong>Mobile authentication apps:</strong> New apps allow consumers and traders to scan diamonds and instantly verify their authenticity using cloud-based databases.</li>
+          <li><strong>Smart contracts:</strong> Automated blockchain contracts can enforce compliance and transparency in diamond transactions.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

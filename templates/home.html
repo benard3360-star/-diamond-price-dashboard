@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .diamond-bg {
+    background: url('/static/diamond_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    border-radius: 1rem;
+    padding: 2rem 1rem;
+    box-shadow: 0 0 30px rgba(0,0,0,0.1);
+    position: relative;
+    min-height: 100vh;
+  }
+  .diamond-bg::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('/static/diamond_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.13;
+    z-index: 1;
+    border-radius: 1rem;
+  }
+  .logo-container {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+  .logo-container img {
+    max-width: 180px;
+    height: auto;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .diamond-bg .card, .diamond-bg .card-body {
+    background: rgba(255,255,255,0.92) !important;
+    z-index: 2;
+    position: relative;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  }
+  .diamond-bg .card-header {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border-radius: 0.75rem 0.75rem 0 0;
+    z-index: 2;
+    position: relative;
+    color: #fff !important;
+    /* Use strong Bootstrap colors for backgrounds */
+  }
+  .bg-primary { background-color: #007bff !important; }
+  .bg-success { background-color: #28a745 !important; }
+  .bg-info { background-color: #17a2b8 !important; }
+  .bg-warning { background-color: #ffc107 !important; color: #212529 !important; }
+  .bg-danger { background-color: #dc3545 !important; }
+  .bg-secondary { background-color: #6c757d !important; }
+</style>
+<div class="diamond-bg">
+  <div class="logo-container">
+    <img src="/static/logo.jpg" alt="Company Logo">
+  </div>
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h1 class="card-title text-center mb-3">AI-Powered Diamond Price Monitoring & Forecasting System for Africa</h1>
+          <h5 class="text-center text-muted">A Comprehensive Dashboard for Industry, Policy, and Research</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header bg-primary">Research Topic</div>
+        <div class="card-body">
+          <p><strong>Developing an AI-powered dashboard using a Hybrid Model (XGBoost and Gradient Boosting) to monitor, forecast, and analyze diamond prices in Africa, integrating industry insights, volatility metrics, and authenticity tracking for stakeholders.</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header bg-success">Aims & Objectives</div>
+        <div class="card-body">
+          <ul>
+            <li>Visualize historical and predicted diamond prices for Africa.</li>
+            <li>Analyze price volatility and its causes.</li>
+            <li>Track major producers and consumers by region and type.</li>
+            <li>Offer industry-specific insights and challenges.</li>
+            <li>Enable filtering by region, diamond type, and time period.</li>
+            <li>Provide tools and information for authenticity tracking.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header bg-info">Introduction</div>
+        <div class="card-body">
+          <p>Diamonds are a cornerstone of Africa's economy, with the continent being home to some of the world's largest producers. However, price volatility, authenticity concerns, and industry challenges hinder sustainable growth. This project leverages AI and data analytics to empower stakeholders with actionable insights and transparent monitoring.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header bg-warning">Research Gaps</div>
+        <div class="card-body">
+          <ul>
+            <li>Lack of integrated, real-time dashboards for African diamond markets.</li>
+            <li>Limited use of AI for price forecasting and volatility analysis in this sector.</li>
+            <li>Insufficient transparency in authenticity tracking and industry challenges.</li>
+            <li>Few tools for region/type-based filtering and comparative analysis.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card h-100">
+        <div class="card-header bg-secondary">Review of Existing Research</div>
+        <div class="card-body">
+          <p>Previous research on diamond price prediction has primarily focused on traditional statistical models or single machine learning algorithms, often using limited datasets. While some studies have explored regression or time-series approaches, few have leveraged hybrid ensemble models like XGBoost and Gradient Boosting for African markets. Existing dashboards, where available, rarely integrate real-time forecasting, volatility analysis, and authenticity tracking in a single platform. This project advances the field by combining state-of-the-art AI with a comprehensive, user-friendly dashboard tailored to the unique challenges and opportunities of Africa's diamond industry.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header bg-secondary">Methodology</div>
+        <div class="card-body">
+          <ol>
+            <li>Data collection from major African producers, global markets, and industry reports.</li>
+            <li>Preprocessing and feature engineering for price prediction.</li>
+            <li>Development of a hybrid AI model for forecasting.</li>
+            <li>Dashboard design using Flask, Bootstrap, and interactive charts.</li>
+            <li>Integration of industry insights, volatility metrics, and authenticity tools.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header bg-danger">Significance & Economic Value</div>
+        <div class="card-body">
+          <ul>
+            <li>Empowers industries and governments with data-driven decision-making.</li>
+            <li>Helps consumers and traders understand price trends and authenticity.</li>
+            <li>Supports top producing countries in managing volatility and maximizing value.</li>
+            <li>Addresses illicit trade, transparency, and industry challenges.</li>
+            <li>Promotes sustainable growth and fair trade in the African diamond sector.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

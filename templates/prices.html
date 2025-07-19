@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Diamond Price Monitoring & Forecasting</h2>
+<div class="row mb-4">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header bg-primary text-white">Historical Prices (USD/carat)</div>
+      <div class="card-body">
+        <div id="priceChart" style="height:300px;"></div>
+        <ul class="list-group mt-3">
+          {% for item in historical_prices %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ item.year }}
+            <span class="badge bg-info">${{ item.price }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header bg-success text-white">Forecast Price</div>
+      <div class="card-body">
+        <form method="POST">
+          {% for feature in top_10_features %}
+            <div class="mb-3">
+              <label class="form-label">{{ feature|capitalize }}</label>
+              {% if feature in dropdown_options %}
+                <select class="form-select" name="{{ feature }}" required>
+                  {% for option in dropdown_options[feature] %}
+                    <option value="{{ option }}">{{ option }}</option>
+                  {% endfor %}
+                </select>
+              {% else %}
+                <input type="number" step="any" class="form-control" name="{{ feature }}" required>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary">Predict Price</button>
+        </form>
+        {% if prediction %}
+        <div class="alert alert-info mt-3">
+          <strong>Predicted Price:</strong> ${{ prediction }} per carat
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+  var years = {{ historical_prices|map(attribute='year')|list|tojson }};
+  var prices = {{ historical_prices|map(attribute='price')|list|tojson }};
+  var trace = {
+    x: years,
+    y: prices,
+    type: 'scatter',
+    mode: 'lines+markers',
+    marker: {color: '#007bff'},
+    line: {shape: 'linear'}
+  };
+  var layout = {
+    title: 'Historical Diamond Prices',
+    xaxis: {title: 'Year'},
+    yaxis: {title: 'Price (USD/carat)'},
+    height: 300
+  };
+  Plotly.newPlot('priceChart', [trace], layout, {responsive: true});
+</script>
+{% endblock %} 
