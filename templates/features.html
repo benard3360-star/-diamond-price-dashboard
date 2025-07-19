@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mt-4">Feature Selection & Economic Importance</h2>
+<hr>
+<h4>Data Transformation: Log Transformation of Price</h4>
+<p>
+  To address the skewed distribution of diamond prices and make the response variable more suitable for linear modeling, we applied a logarithmic transformation to the price column. This transformation helps stabilize variance, reduce the effect of outliers, and make the distribution of prices more normal, which is a key assumption for many statistical models. The transformed response variable is <b>log_price</b>.
+</p>
+
+<h4>Feature Selection: OLS Forward Search</h4>
+<p>
+  We used an OLS (Ordinary Least Squares) forward stepwise selection method to identify the most statistically significant features for predicting diamond prices. This approach iteratively adds features that improve the model's performance, resulting in a more interpretable and robust model.
+</p>
+
+<div class="card my-4">
+  <div class="card-header bg-primary text-white">Final Linear Regression Model Summary</div>
+  <div class="card-body">
+    <pre style="font-size: 0.9em;">{{ ols_summary }}</pre>
+  </div>
+</div>
+
+<h4>Economic Importance of Selected Features</h4>
+<ul class="list-group mb-4">
+  {% for feature in features_list %}
+    <li class="list-group-item">
+      <b>{{ feature.name|capitalize }}</b>: {{ feature.desc }}
+    </li>
+  {% endfor %}
+</ul>
+
+<h4>Data Cleaning</h4>
+<p>
+  The original diamond dataset contained over 53,000 records and was remarkably clean, with <b>no missing values</b> in any column. As a result, no imputation or removal of records was necessary, allowing for robust analysis and modeling.
+</p>
+
+<h4>Feature Engineering</h4>
+<p>
+  To enhance predictive power and capture important physical and quality characteristics, several new features were engineered from the raw data:
+</p>
+<div class="table-responsive mb-4">
+  <table class="table table-bordered table-striped">
+    <thead class="table-info">
+      <tr>
+        <th>New Feature</th>
+        <th>Formula</th>
+        <th>Why it helps</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>volume</b></td>
+        <td><code>x * y * z</code></td>
+        <td>Captures 3‑D size better than carat alone; drives big gradient‑boosting gains.</td>
+      </tr>
+      <tr>
+        <td><b>carat_per_mm3</b></td>
+        <td><code>carat / volume</code></td>
+        <td>Flags stones cut too shallow/deep versus ideal density.</td>
+      </tr>
+      <tr>
+        <td><b>length_width_ratio</b></td>
+        <td><code>x / y</code></td>
+        <td>Highlights elongated vs. square shapes (affects desirability).</td>
+      </tr>
+      <tr>
+        <td><b>depth_pct_calc</b></td>
+        <td><code>2*z / (x + y)</code></td>
+        <td>Re‑computes depth % to verify/replace unreliable <code>depth</code> column.</td>
+      </tr>
+      <tr>
+        <td><b>table_pct_calc</b></td>
+        <td>Existing <code>table</code> is already % of top width to girdle; kept as is.</td>
+        <td>Directly measures table proportion, a key cut quality metric.</td>
+      </tr>
+      <tr>
+        <td><b>quality_rank</b></td>
+        <td><code>ordinal_sum(cut, color, clarity)</code></td>
+        <td>Single numeric score (lower = better); useful for linear models.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  These features were selected not only for their statistical significance but also for their economic relevance in the diamond industry. Understanding these drivers helps stakeholders make informed decisions in pricing, valuation, and investment.
+</p>
+{% endblock %} 

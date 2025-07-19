@@ -1,6 +1,71 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2 class="mb-4">Results & Discussion</h2>
+
+<div class="card mb-4">
+  <div class="card-header bg-primary text-white">Model Comparison</div>
+  <div class="card-body">
+    <p>Several regression models were trained and evaluated to predict diamond prices. The table below summarizes their performance metrics:</p>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="table-info">
+          <tr>
+            <th>Model</th>
+            <th>MAE</th>
+            <th>MSE</th>
+            <th>RMSE</th>
+            <th>R<sup>2</sup> Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Linear Regression</td><td>0.2863</td><td>0.1323</td><td>0.3637</td><td>0.8712</td></tr>
+          <tr><td>Random Forest</td><td>0.0581</td><td>0.0071</td><td>0.0843</td><td>0.9931</td></tr>
+          <tr><td>Gradient Boosting</td><td>0.0675</td><td>0.0082</td><td>0.0905</td><td>0.9920</td></tr>
+          <tr><td>Decision Tree</td><td>0.0781</td><td>0.0135</td><td>0.1162</td><td>0.9868</td></tr>
+          <tr><td>XGBoost</td><td>0.0598</td><td>0.0069</td><td>0.0830</td><td>0.9933</td></tr>
+          <tr><td>GAM</td><td>0.0951</td><td>0.0147</td><td>0.1213</td><td>0.9857</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The ensemble and tree-based models outperformed linear regression, with XGBoost and Random Forest achieving the best results.</p>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">Hybrid Model & Its Advantages</div>
+  <div class="card-body">
+    <p>To further boost accuracy, a <b>hybrid model</b> combining XGBoost and Gradient Boosting was developed. This approach leverages the strengths of both algorithms—XGBoost's regularization and handling of complex interactions, and Gradient Boosting's robustness to overfitting. The hybrid model achieved superior performance, with higher R<sup>2</sup> and lower error metrics than any standalone model.</p>
+    <ul>
+      <li>Reduces bias and variance by blending predictions.</li>
+      <li>Improves generalization to unseen data.</li>
+      <li>Captures both linear and non-linear relationships in diamond pricing.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-warning text-dark">Model Optimization & Feature Importance</div>
+  <div class="card-body">
+    <p>The hybrid model was optimized using hyperparameter tuning to achieve the best possible results. After training, feature importance analysis was conducted to identify the most influential predictors of diamond price. The top features were then saved, along with the trained model, as pickle files for deployment.</p>
+    <ul>
+      <li><b>Hyperparameter tuning</b> improved model accuracy and robustness.</li>
+      <li><b>Feature importance</b> guided the selection of the most relevant predictors for price estimation.</li>
+      <li>Both the <b>model</b> and <b>selected features</b> were exported for use in the deployed dashboard.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-info text-white">Deployment: Backend & Frontend</div>
+  <div class="card-body">
+    <p>The solution was deployed as a web dashboard with a clear separation of backend and frontend:</p>
+    <ul>
+      <li><b>Backend:</b> Built with Flask, it loads the trained model and features, handles prediction requests, and serves data to the frontend.</li>
+      <li><b>Frontend:</b> Developed using HTML, Bootstrap, and Jinja templates, it provides an interactive and user-friendly interface for price prediction, data exploration, and industry insights.</li>
+      <li>The dashboard is designed for accessibility, transparency, and ease of use by all stakeholders.</li>
+    </ul>
+  </div>
+</div>
 <div class="row g-4">
   <div class="col-md-6">
     <div class="card mb-4">

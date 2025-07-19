@@ -123,6 +123,53 @@ def volatility():
 def authenticity():
     return render_template('authenticity.html', authenticity_methods=authenticity_methods)
 
+@app.route('/features')
+def features():
+    # OLS summary and feature economic importance (to be shown in template)
+    ols_summary = '''
+    Final Linear Regression Model Summary (Using Stepwise Features):
+                               OLS Regression Results                            
+==============================================================================
+Dep. Variable:              log_price   R-squared:                       0.869
+Model:                            OLS   Adj. R-squared:                  0.869
+Method:                 Least Squares   F-statistic:                 4.467e+04
+Date:                Sat, 19 Jul 2025   Prob (F-statistic):               0.00
+Time:                        09:56:37   Log-Likelihood:                -22474.
+No. Observations:               53919   AIC:                         4.497e+04
+Df Residuals:                   53910   BIC:                         4.505e+04
+Df Model:                           8                                         
+Covariance Type:            nonrobust                                         
+==================================================================================
+                     coef    std err          t      P>|t|      [0.025      0.975]
+----------------------------------------------------------------------------------
+const              6.2616      0.078     80.759      0.000       6.110       6.414
+carat              1.9931      0.018    113.129      0.000       1.959       2.028
+color             -0.0758      0.001    -77.931      0.000      -0.078      -0.074
+clarity            0.0499      0.001     52.942      0.000       0.048       0.052
+table             -0.0057      0.001     -7.553      0.000      -0.007      -0.004
+depth_pct_calc    -0.3294      0.057     -5.792      0.000      -0.441      -0.218
+carat_per_mm3     62.4631     10.040      6.221      0.000      42.784      82.142
+volume             0.0006      0.000      5.716      0.000       0.000       0.001
+cut                0.0047      0.002      3.011      0.003       0.002       0.008
+==============================================================================
+Omnibus:                    13528.444   Durbin-Watson:                   0.903
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            89395.207
+Skew:                          -1.044   Prob(JB):                         0.00
+Kurtosis:                       8.952   Cond. No.                     1.01e+06
+==============================================================================
+    '''
+    features_list = [
+        {"name": "carat", "desc": "Carat weight is the most direct measure of a diamond's size and a primary driver of price. Larger diamonds are rarer and command higher prices."},
+        {"name": "color", "desc": "Diamond color (graded D-Z) affects value, with colorless stones being more valuable. Color is a key quality attribute in pricing."},
+        {"name": "clarity", "desc": "Clarity measures internal and external flaws. Higher clarity increases value, as flawless diamonds are rare."},
+        {"name": "table", "desc": "The table is the largest facet. Its size impacts brilliance and market value, with optimal proportions preferred by buyers."},
+        {"name": "depth_pct_calc", "desc": "Depth percentage affects how light travels through the diamond, influencing sparkle and thus price."},
+        {"name": "carat_per_mm3", "desc": "Carat per cubic millimeter reflects density and cut quality, impacting perceived value and price."},
+        {"name": "volume", "desc": "Volume relates to the diamond's physical size, which, along with carat, influences price."},
+        {"name": "cut", "desc": "Cut quality determines brilliance and fire, making it a major economic factor in diamond pricing."},
+    ]
+    return render_template('features.html', ols_summary=ols_summary, features_list=features_list)
+
 @app.route('/results')
 def results():
     return render_template('results.html')
