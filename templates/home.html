@@ -153,5 +153,21 @@
       </div>
     </div>
   </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card border-info mb-4">
+        <div class="card-header bg-info text-white">Data Preparation & Feature Engineering Overview</div>
+        <div class="card-body">
+          <ul>
+            <li><b>Initial Dataset:</b> The dataset contained over 53,000 diamond records with no missing values, so no imputation was required.</li>
+            <li><b>Data Cleaning:</b> No null values were present; all records were complete and ready for analysis.</li>
+            <li><b>Data Transformation:</b> The price column was log-transformed to create a normally distributed response variable <b>log_price</b>, improving model performance and interpretability.</li>
+            <li><b>Feature Selection:</b> OLS forward stepwise selection identified the most statistically and economically significant features for price prediction.</li>
+            <li><b>Feature Engineering:</b> New features such as <b>volume</b>, <b>carat_per_mm3</b>, <b>length_width_ratio</b>, <b>depth_pct_calc</b>, and <b>quality_rank</b> were created to capture important physical and quality aspects of diamonds.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %} 
